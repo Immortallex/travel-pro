@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import axios from 'axios';
+import techEvent from '../assets/tech-event.jpg';
 
 function Tech() {
   const [name, setName] = useState('');
@@ -9,19 +10,9 @@ function Tech() {
   const [specialization, setSpecialization] = useState('');
   const [subSpec, setSubSpec] = useState('Software Dev');
   const [files, setFiles] = useState([]);
-  const [savedDraft, setSavedDraft] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState('');
 
-  const handleFileChange = (e) => {
-    setFiles(Array.from(e.target.files));
-  };
-
-  const handleSaveDraft = () => {
-    const draft = { name, email, message, subSpec, specialization };
-    localStorage.setItem('techDraft', JSON.stringify(draft));
-    setSavedDraft(true);
-    alert('Draft saved!');
-  };
+  const handleFileChange = (e) => setFiles(Array.from(e.target.files));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +23,6 @@ function Tech() {
     try {
       await axios.post('http://localhost:5000/api/inquiries', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       alert('Application submitted!');
-      // OxaPay payment
       const response = await axios.post('https://api.oxapay.com/v1/createInvoice', {
         apiKey: 'YOUR_OXAPAY_API_KEY',
         amount: 50,
@@ -48,48 +38,112 @@ function Tech() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, type: 'spring' }}
-      className="py-20 space-y-16"  // Wide vertical spacing
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="min-h-screen flex flex-col items-center justify-center py-20 px-6"
     >
-      <div className="text-center space-y-8">
-        <h1 className="text-5xl font-bold text-blue-900">Tech Travel Solutions</h1>
-        <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-          Tailored for tech professionals: work visas, conference bookings, remote work hubs.
-        </p>
+      {/* Hero image with title overlaid */}
+      <div className="relative w-full max-w-5xl mb-16">
         <img
-          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&auto=format&fit=crop&q=80"
+          src={techEvent}
           alt="Tech conference"
-          className="rounded-xl shadow-2xl mx-auto max-w-4xl w-full object-cover h-64 md:h-96"
+          className="w-full rounded-2xl shadow-2xl object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-2xl" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl leading-tight">
+            TECH TRAVEL SOLUTIONS<br />THAT DEFINE YOUR<br />CAREER.
+          </h1>
+        </div>
       </div>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-6 bg-white p-8 rounded-xl shadow-xl">
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full p-2 border rounded" required />
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full p-2 border rounded" required />
-        <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" className="w-full p-2 border rounded h-32" required />
-        <select value={subSpec} onChange={(e) => setSubSpec(e.target.value)} className="w-full p-2 border rounded">
-          <option>Software Development</option>
-          <option>AI</option>
-          <option>ML</option>
+
+      {/* Description */}
+      <p className="text-center text-lg md:text-xl text-gray-700 max-w-3xl mb-16">
+        Tailored for tech professionals: work visas, conference bookings, remote work hubs in Lagos and global.
+      </p>
+
+      {/* Centered form */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-white p-10 rounded-2xl shadow-xl border border-gray-200 space-y-6"
+      >
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Full Name"
+          className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          required
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email Address"
+          className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          required
+        />
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Your Message"
+          className="w-full p-4 border border-gray-300 rounded-lg h-32 focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          required
+        />
+        <select
+          value={subSpec}
+          onChange={(e) => setSubSpec(e.target.value)}
+          className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+        >
+          <option>Software Dev</option>
+          <option>AI Engineer</option>
+          <option>Data Science</option>
         </select>
-        <input type="text" value={specialization} onChange={(e) => setSpecialization(e.target.value)} placeholder="Custom Specialization" className="w-full p-2 border rounded" />
-        <input type="file" multiple onChange={handleFileChange} className="w-full" />
-        {files.length > 0 && <p>{files.length} files uploaded</p>}
-        <button type="button" onClick={handleSaveDraft} className="w-full bg-gray-500 text-white p-2 rounded">Save Draft</button>
-        <button type="submit" className="w-full bg-blue-900 text-white p-2 rounded">Submit & Pay</button>
+        <input
+          type="text"
+          value={specialization}
+          onChange={(e) => setSpecialization(e.target.value)}
+          placeholder="Custom Specialization (optional)"
+          className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+        />
+        <input
+          type="file"
+          multiple
+          onChange={handleFileChange}
+          className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+        />
+        {files.length > 0 && (
+          <p className="text-teal-600 text-sm">{files.length} file(s) selected</p>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <button
+            type="button"
+            onClick={() => alert('Draft saved!')}
+            className="flex-1 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition"
+          >
+            Save Draft
+          </button>
+          <button
+            type="submit"
+            className="flex-1 bg-indigo-900 text-white py-3 rounded-lg hover:bg-indigo-800 transition"
+          >
+            Submit & Pay
+          </button>
+        </div>
       </form>
-      {paymentUrl && <a href={paymentUrl} className="block text-center bg-green-500 text-white p-2 rounded max-w-lg mx-auto">Pay with BTC/USDT</a>}
-      <div className="grid md:grid-cols-2 gap-12 mt-16">  // Spacious grid
-        <div className="card p-6">
-          <h3 className="text-xl font-semibold">Visa Guides</h3>
-          <p>H-1B for tech talents.</p>
-        </div>
-        <div className="card p-6">
-          <h3 className="text-xl font-semibold">Events</h3>
-          <p>Book CES or local tech meets.</p>
-        </div>
-      </div>
+
+      {paymentUrl && (
+        <a
+          href={paymentUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full max-w-lg mx-auto mt-8 bg-green-600 text-white text-center py-4 rounded-xl hover:bg-green-700 transition"
+        >
+          Proceed to Payment (BTC/USDT)
+        </a>
+      )}
     </motion.div>
   );
 }

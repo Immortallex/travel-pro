@@ -10,13 +10,16 @@ import Conference from './pages/Conference';
 import Sports from './pages/Sports';
 import Football from './pages/Football';
 import Basketball from './pages/Basketball';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-indigo-50/30">
+      <div className="min-h-screen bg-white">
         <NavBar />
-        <main className="container mx-auto max-w-5xl px-6 pt-52 pb-24"> {/* pt-52 clears dual nav, max-w-5xl centers tightly */}
+        <main className="pt-32 pb-20 centered">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -28,11 +31,12 @@ function App() {
             <Route path="/sports" element={<Sports />} />
             <Route path="/sports/football" element={<Football />} />
             <Route path="/sports/basketball" element={<Basketball />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
-        <footer className="bg-indigo-950 text-white text-center py-8 border-t border-indigo-800/40">
-          © 2026 TravelPro – Professional Travel Solutions | Lagos, Nigeria
-        </footer>
+        <footer className="bg-[#001f3f] text-white text-center py-8">© 2026 TravelPro – Professional Travel Solutions | Lagos, Nigeria</footer>
       </div>
     </Router>
   );

@@ -1,6 +1,5 @@
 const Inquiry = require('../models/Inquiry');
-const NowPayments = require('nowpayments-api');
-const nowPayments = new NowPayments(process.env.NOWPAYMENTS_API_KEY, { sandbox: process.env.NOWPAYMENTS_SANDBOX === 'true' });
+const nowpayments = require('nowpayments-api');  // Correct import (it's a function, not a class)
 
 exports.createInquiry = async (req, res) => {
   try {
@@ -10,22 +9,27 @@ exports.createInquiry = async (req, res) => {
       path: file.path,
       mimetype: file.mimetype,
     })) : [];
+
     const inquiry = new Inquiry({ category, details, files, user: req.user.id });
     await inquiry.save();
 
-    // Create NowPayments invoice
-    const invoice = await nowPayments.createInvoice({
+    // Create NowPayments invoice using the correct function call
+    const invoice = await nowpayments.createInvoice({
+      apiKey: process.env.NOWPAYMENTS_API_KEY,
       price_amount: 50,
       price_currency: 'usd',
-      pay_currency: 'BTC',  // or 'USDT' – can make dynamic later
+      pay_currency: 'BTC',
       order_description: 'Inquiry Application Fee',
+      order_id: inquiry._id.toString(),
+      order_name: `TravelPro ${category} Application`,
       success_url: `${process.env.APP_URL}/success`,
       cancel_url: `${process.env.APP_URL}/cancel`,
     });
 
     res.status(201).json({ message: 'Inquiry created', paymentUrl: invoice.invoice_url });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Payment error:', error);
+    res.status(400).json({ error: error.message || 'Payment invoice creation failed' });
   }
 };
 
@@ -36,4 +40,4 @@ exports.getInquiries = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}; 
+};
