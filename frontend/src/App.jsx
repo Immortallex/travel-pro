@@ -14,9 +14,9 @@ import Basketball from './pages/Basketball';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-indigo-50/30">
         <NavBar />
-        <main className="container pt-44 pb-24 max-w-5xl mx-auto px-4 md:px-6"> {/* Centered, spacious main */}
+        <main className="container mx-auto max-w-5xl px-6 pt-52 pb-24"> {/* pt-52 clears dual nav, max-w-5xl centers tightly */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

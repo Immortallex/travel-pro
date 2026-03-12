@@ -59,7 +59,7 @@ function Tech() {
           Tailored for tech professionals: work visas, conference bookings, remote work hubs.
         </p>
         <img
-          src="/assets/tech-event.jpg"
+          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&auto=format&fit=crop&q=80"
           alt="Tech conference"
           className="rounded-xl shadow-2xl mx-auto max-w-4xl w-full object-cover h-64 md:h-96"
         />
@@ -69,7 +69,7 @@ function Tech() {
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full p-2 border rounded" required />
         <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" className="w-full p-2 border rounded h-32" required />
         <select value={subSpec} onChange={(e) => setSubSpec(e.target.value)} className="w-full p-2 border rounded">
-          <option>Software Dev</option>
+          <option>Software Development</option>
           <option>AI</option>
           <option>ML</option>
         </select>

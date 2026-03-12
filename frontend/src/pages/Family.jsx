@@ -58,7 +58,7 @@ function Family() {
           Group visas, family-friendly destinations, vacation packages.
         </p>
         <img
-          src="/assets/family-vacation.jpg"
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&auto=format&fit=crop&q=80"
           alt="Family vacation"
           className="rounded-xl shadow-2xl mx-auto max-w-4xl w-full object-cover h-64 md:h-96"
         />
