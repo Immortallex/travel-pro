@@ -31,10 +31,14 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use(errorMiddleware);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Backend running on port ${process.env.PORT}`);
+    console.log('MongoDB connected successfully');
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`Backend running on port ${process.env.PORT || 5000}`);
     });
   })
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit if DB fails (good for Render)
+  });
