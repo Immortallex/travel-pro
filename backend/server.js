@@ -13,14 +13,24 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// Secure CORS – allow only your live frontend domain
+app.use(cors({
+  origin: [
+    'https://travelpro-frontend-psi.vercel.app',  // Your Vercel URL
+    'https://travel-pro-frontend.vercel.app',     // Any preview URLs
+    'http://localhost:5173'                       // Keep for local testing
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(helmet());
-app.use(cors({ origin: process.env.APP_URL, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many requests' })); // Basic DoS protection
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// Static files for uploads (secure with auth later)
+// Serve static files (uploads)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
@@ -40,5 +50,5 @@ mongoose.connect(process.env.MONGODB_URI)
   })
   .catch(err => {
     console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit if DB fails (good for Render)
+    process.exit(1);
   });
