@@ -13,24 +13,36 @@ dotenv.config();
 
 const app = express();
 
-// Secure CORS – allow only your live frontend domain
+// Secure CORS – allow only your live Vercel frontend domain
 app.use(cors({
   origin: [
-    'https://travelpro-frontend-psi.vercel.app',  // Your Vercel URL
-    'https://travel-pro-frontend.vercel.app',     // Any preview URLs
-    'http://localhost:5173'                       // Keep for local testing
+    'https://travelpro-frontend-psi.vercel.app',   // Your exact Vercel URL
+    'https://travelpro-frontend.vercel.app',       // Any preview domains
+    'http://localhost:5173'                        // Keep for local testing
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
+// Handle preflight OPTIONS requests
+app.options('*', cors());
+
+// Security headers
 app.use(helmet());
+
+// Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// Serve static files (uploads)
+// Rate limiting (DoS protection)
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+  message: 'Too many requests from this IP, please try again later.'
+}));
+
+// Serve static uploads (optional, secure later)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
