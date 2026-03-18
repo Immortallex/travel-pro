@@ -1,47 +1,72 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     try {
-      await axios.post('http://localhost:5000/api/signup', { email, password });
-      alert('Account created! Please login.');
-      window.location.href = '/login';
+      const response = await axios.post(
+        'https://travel-pro-3o9n.onrender.com/api/auth/signup',
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      alert('Account created successfully! Please login.');
+      navigate('/login');
     } catch (err) {
-      alert('Error: ' + err.message);
+      setError(err.response?.data?.error || 'Signup failed. Please try again.');
+      console.error('Signup error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="w-full max-w-md bg-white p-12 rounded-2xl shadow-2xl border border-gray-200">
-        <h2 className="text-4xl font-bold text-indigo-900 text-center mb-10">Join TravelPro</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+      <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl">
+        <h2 className="text-3xl font-bold text-center mb-8">Join TravelPro</h2>
+        
+        {error && <div className="bg-red-100 text-red-700 p-3 rounded-lg mb-6">{error}</div>}
+
         <form onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email Address"
-            className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-            required
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-            required
-          />
+          <div>
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+              required
+            />
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-indigo-900 text-white py-4 rounded-xl font-semibold hover:bg-indigo-800 transition"
+            disabled={loading}
+            className="w-full bg-teal-600 text-white py-4 rounded-xl font-medium hover:bg-teal-700 transition disabled:bg-gray-400"
           >
-            Create Account
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
       </div>
