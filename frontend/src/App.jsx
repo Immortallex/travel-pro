@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -14,29 +14,35 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './pages/Dashboard';
 
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" />;
+};
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white">
-        <NavBar />
-        <main className="pt-32 pb-20 centered">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/tech" element={<Tech />} />
-            <Route path="/family" element={<Family />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/conference" element={<Conference />} />
-            <Route path="/sports" element={<Sports />} />
-            <Route path="/sports/football" element={<Football />} />
-            <Route path="/sports/basketball" element={<Basketball />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </main>
-        <footer className="bg-[#001f3f] text-white text-center py-8">© 2026 TravelPro – Professional Travel Solutions | Lagos, Nigeria</footer>
+      <NavBar />
+      <div className="pt-20">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Protected Routes - Upload & Payment only after login */}
+          <Route path="/tech" element={<PrivateRoute><Tech /></PrivateRoute>} />
+          <Route path="/family" element={<PrivateRoute><Family /></PrivateRoute>} />
+          <Route path="/education" element={<PrivateRoute><Education /></PrivateRoute>} />
+          <Route path="/conference" element={<PrivateRoute><Conference /></PrivateRoute>} />
+          <Route path="/sports" element={<PrivateRoute><Sports /></PrivateRoute>} />
+          <Route path="/sports/football" element={<PrivateRoute><Football /></PrivateRoute>} />
+          <Route path="/sports/basketball" element={<PrivateRoute><Basketball /></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </div>
     </Router>
   );
