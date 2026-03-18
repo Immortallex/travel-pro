@@ -3,6 +3,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import contactOffice from '../assets/contact-office.jpg';
 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/login';
+    return null;
+  }
+
 function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +40,7 @@ function Contact() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-2xl" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl leading-tight">
-            LET'S START<br />YOUR JOURNEY<br />TOGETHER.
+           
           </h1>
         </div>
       </div>

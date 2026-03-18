@@ -3,6 +3,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import familyVacation from '../assets/family-vacation.jpg';
 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/login';
+    return null;
+  }
+
 function Family() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -53,7 +59,7 @@ function Family() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-2xl" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl leading-tight">
-            FAMILY TRAVEL SOLUTIONS<br />THAT CREATE<br />LASTING MEMORIES.
+            
           </h1>
         </div>
       </div>

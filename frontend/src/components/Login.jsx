@@ -22,7 +22,7 @@ function Login() {
       );
 
       localStorage.setItem('token', response.data.token);
-      alert('Login successful!');
+      alert('Login successful! Welcome back.');
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please try again.');

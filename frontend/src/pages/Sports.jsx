@@ -2,6 +2,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import sportsGeneral from '../assets/sports-general.jpg';
 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/login';
+    return null;
+  }
+
 function Sports() {
   return (
     <motion.div
