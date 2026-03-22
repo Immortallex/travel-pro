@@ -21,10 +21,10 @@ function Signup() {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      alert('Account created successfully! Please login.');
+      alert('Account created! Please login.');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.error || 'Signup failed. Please try again.');
+      setError(err.response?.data?.error || 'Signup failed');
       console.error('Signup error:', err);
     } finally {
       setLoading(false);
@@ -35,38 +35,30 @@ function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl">
         <h2 className="text-3xl font-bold text-center mb-8">Join TravelPro</h2>
-        
         {error && <div className="bg-red-100 text-red-700 p-3 rounded-lg mb-6">{error}</div>}
-
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              required
-            />
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              required
-            />
-          </div>
-
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            required
+          />
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-teal-600 text-white py-4 rounded-xl font-medium hover:bg-teal-700 transition disabled:bg-gray-400"
           >
-            {loading ? 'Creating Account...' : 'Create Account'}
+            {loading ? 'Creating...' : 'Create Account'}
           </button>
         </form>
       </div>

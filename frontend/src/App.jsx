@@ -16,14 +16,14 @@ import Dashboard from './pages/Dashboard';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" />;
+  return token ? children : <Navigate to="/login" replace />;
 };
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <NavBar />
-      <div className="pt-20">
+      <div className="pt-20 min-h-screen bg-gray-50">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -31,7 +31,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          {/* Protected Routes - Upload & Payment only after login */}
           <Route path="/tech" element={<PrivateRoute><Tech /></PrivateRoute>} />
           <Route path="/family" element={<PrivateRoute><Family /></PrivateRoute>} />
           <Route path="/education" element={<PrivateRoute><Education /></PrivateRoute>} />
@@ -41,7 +40,7 @@ function App() {
           <Route path="/sports/basketball" element={<PrivateRoute><Basketball /></PrivateRoute>} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
 
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
