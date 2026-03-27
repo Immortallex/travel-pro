@@ -4,12 +4,12 @@ import heroImg from '../assets/hero-travel.jpg';
 function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section with Title on Top of Picture */}
+      {/* Hero with Title on Top */}
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
         <img 
           src={heroImg} 
           alt="TravelPro Hero" 
-          className="absolute inset-0 w-full h-full object-cover" 
+          className="hero-image absolute inset-0" 
         />
         <div className="absolute inset-0 bg-black/50" />
         
@@ -38,7 +38,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Categories Section */}
+      {/* Categories */}
       <div className="max-w-7xl mx-auto px-8 py-24">
         <h2 className="text-5xl font-bold text-center mb-16 text-gray-800">
           Choose Your Travel Specialization
@@ -47,55 +47,35 @@ function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           <Link to="/tech" className="group">
             <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden shadow-xl">
-              <img 
-                src="/src/assets/tech-event.jpg" 
-                alt="Tech" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-              />
+              <img src="/src/assets/tech-event.jpg" alt="Tech" className="hero-image" />
             </div>
             <p className="text-3xl font-semibold text-center mt-6 text-gray-800">Tech</p>
           </Link>
 
           <Link to="/family" className="group">
             <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden shadow-xl">
-              <img 
-                src="/src/assets/family-vacation.jpg" 
-                alt="Family" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-              />
+              <img src="/src/assets/family-vacation.jpg" alt="Family" className="hero-image" />
             </div>
             <p className="text-3xl font-semibold text-center mt-6 text-gray-800">Family</p>
           </Link>
 
           <Link to="/education" className="group">
             <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden shadow-xl">
-              <img 
-                src="/src/assets/education-study.jpg" 
-                alt="Education" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-              />
+              <img src="/src/assets/education-study.jpg" alt="Education" className="hero-image" />
             </div>
             <p className="text-3xl font-semibold text-center mt-6 text-gray-800">Education</p>
           </Link>
 
           <Link to="/conference" className="group">
             <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden shadow-xl">
-              <img 
-                src="/src/assets/conference-event.jpg" 
-                alt="Conference" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-              />
+              <img src="/src/assets/conference-meeting.jpg" alt="Conference" className="hero-image" />
             </div>
             <p className="text-3xl font-semibold text-center mt-6 text-gray-800">Conference</p>
           </Link>
 
           <Link to="/sports" className="group">
             <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden shadow-xl">
-              <img 
-                src="/src/assets/sports-general.jpg" 
-                alt="Sports" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-              />
+              <img src="/src/assets/sports-general.jpg" alt="Sports" className="hero-image" />
             </div>
             <p className="text-3xl font-semibold text-center mt-6 text-gray-800">Sports</p>
           </Link>

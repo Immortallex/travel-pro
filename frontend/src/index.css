@@ -11,18 +11,13 @@
 
 @layer components {
   .hero-image {
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    @apply w-full h-full object-cover transition-transform duration-500;
   }
-  .hero-image:hover {
-    transform: scale(1.05);
-  }
-  .nav-link {
-    @apply px-8 py-2 text-lg font-medium hover:text-teal-600 transition-colors;
+  .page-form {
+    @apply bg-white p-12 rounded-3xl shadow-2xl space-y-8;
   }
 }
 
 h1 {
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  @apply text-5xl md:text-6xl font-bold tracking-tight;
 }
