@@ -21,7 +21,7 @@ const PrivateRoute = ({ children }) => {
 
 function App() {
   return (
-    <Router basename="/">
+    <Router>
       <NavBar />
       <div className="pt-20 min-h-screen bg-gray-50">
         <Routes>
