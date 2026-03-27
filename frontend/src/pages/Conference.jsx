@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import conferenceImg from '../assets/conference-event.jpg';
+import conferenceImg from '../assets/conference-meeting.jpg';
 
 function Conference() {
   const [formData, setFormData] = useState({
