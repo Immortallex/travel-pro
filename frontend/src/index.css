@@ -1,59 +1,45 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: white;
-  color: black;
-}
-
-.staggered-text {
-  line-height: 1.1;
-  font-weight: 900;
-  font-size: 3rem;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-}
-
-.blue-button {
-  background: #001f3f;
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-
-.blue-button:hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
-.hero-img {
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
-  height: auto;
-}
-
-.centered {
-  max-width: 80%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-@media (max-width: 640px) {
-  .staggered-text {
-    font-size: 2rem;
+@layer base {
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
   }
-  .blue-button {
-    width: 100%;
+}
+
+@layer components {
+  /* Professional card & image styles */
+  .hero-image {
+    @apply w-full h-full object-cover rounded-3xl shadow-2xl;
   }
+
+  .page-form {
+    @apply bg-white p-12 rounded-3xl shadow-2xl space-y-8;
+  }
+
+  .nav-link {
+    @apply px-8 py-2 text-lg font-medium hover:text-teal-600 transition-colors;
+  }
+
+  /* Make all images look premium */
+  img {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  /* Center everything nicely */
+  .center-container {
+    @apply max-w-5xl mx-auto px-8;
+  }
+}
+
+/* Extra custom styles for beautiful look */
+h1 {
+  @apply text-5xl md:text-6xl font-bold tracking-tight;
+}
+
+button {
+  @apply transition-all duration-200 active:scale-95;
 }
