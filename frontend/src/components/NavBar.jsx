@@ -7,9 +7,8 @@ function NavBar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-teal-600">TravelPro</Link>
+      <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+        <Link to="/" className="text-3xl font-bold text-teal-600">TravelPro</Link>
 
         {/* Desktop Nav - Large Spacing */}
         <div className="hidden md:flex items-center space-x-16 text-lg font-medium">
@@ -30,7 +29,7 @@ function NavBar() {
         </div>
 
         {/* Mobile Hamburger */}
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-2xl">
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-3xl">
           ☰
         </button>
       </div>

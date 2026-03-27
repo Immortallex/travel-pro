@@ -25,7 +25,7 @@ function Login() {
       alert('Login successful!');
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed');
+      setError(err.response?.data?.error || 'Login failed. Please try again.');
       console.error('Login error:', err);
     } finally {
       setLoading(false);
@@ -43,7 +43,7 @@ function Login() {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             required
           />
           <input
@@ -51,7 +51,7 @@ function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             required
           />
           <button

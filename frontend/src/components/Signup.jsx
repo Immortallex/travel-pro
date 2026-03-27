@@ -21,10 +21,10 @@ function Signup() {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      alert('Account created! Please login.');
+      alert('Account created successfully! Please login.');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.error || 'Signup failed');
+      setError(err.response?.data?.error || 'Signup failed. Please try again.');
       console.error('Signup error:', err);
     } finally {
       setLoading(false);
@@ -42,7 +42,7 @@ function Signup() {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             required
           />
           <input
@@ -50,7 +50,7 @@ function Signup() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             required
           />
           <button
@@ -58,7 +58,7 @@ function Signup() {
             disabled={loading}
             className="w-full bg-teal-600 text-white py-4 rounded-xl font-medium hover:bg-teal-700 transition disabled:bg-gray-400"
           >
-            {loading ? 'Creating...' : 'Create Account'}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
       </div>
